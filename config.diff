@@ -1,5 +1,5 @@
 diff --git a/config.def.h b/config.def.h
-index 1c0b587..5d9f727 100644
+index 1c0b587..7c7e48c 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -1,11 +1,14 @@
@@ -28,7 +28,7 @@ index 1c0b587..5d9f727 100644
  
  static const Layout layouts[] = {
  	/* symbol     arrange function */
-@@ -56,25 +59,27 @@ static const Layout layouts[] = {
+@@ -56,25 +59,25 @@ static const Layout layouts[] = {
  
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -43,8 +43,6 @@ index 1c0b587..5d9f727 100644
  	/* modifier                     key        function        argument */
 -	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 -	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-+	{ MODKEY,            			XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
  	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
  	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -64,20 +62,6 @@ index 1c0b587..5d9f727 100644
  	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
  	{ MODKEY,                       XK_space,  setlayout,      {0} },
  	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-@@ -94,6 +99,13 @@ static Key keys[] = {
- 	TAGKEYS(                        XK_8,                      7)
- 	TAGKEYS(                        XK_9,                      8)
- 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-+	/* volume controls */
-+	{0, 							XF86XK_AudioRaiseVolume, spawn,  SHCMD("volumeControl up; kill -54 $(pidof dwmblocks)") },
-+	{0, 							XF86XK_AudioLowerVolume, spawn,  SHCMD("volumeControl down; kill -54 $(pidof dwmblocks)") },
-+	{0, 							XF86XK_AudioMute, spawn, 		 SHCMD("volumeControl mute; kill -54 $(pidof dwmblocks)") },
-+	/* brightness controls */
-+	{0,             				XF86XK_MonBrightnessUp, spawn,   SHCMD("brightnessControl up; kill -64 $(pidof dwmblocks)") },
-+	{0,             				XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessControl down; kill -64 $(pidof dwmblocks)") },
- };
- 
- /* button definitions */
 diff --git a/drw.c b/drw.c
 index 4cdbcbe..63e5a7c 100644
 --- a/drw.c
